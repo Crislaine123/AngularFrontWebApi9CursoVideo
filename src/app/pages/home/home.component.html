@@ -1,0 +1,80 @@
+
+<div class="container mt-5">
+
+    <div class="text-end">
+            <button class="btn btn-danger shadow-sm" style="width: 150px;" (click)="deslogar()">
+                <i class="bi bi-box-arrow-right" ></i> Deslogar
+            </button>
+    </div>
+
+    <div class="d-flex justify-content-center gap-3 mt-4 mb-4">
+        <button class="btn btn-primary w-50 shadow-sm" (click)="exportarExcel()"  >
+            <i class="bi bi-file-earmark-excel" ></i> Auditorias
+        </button>
+
+        <button class="btn btn-success w-50 shadow-sm" [routerLink]="['/cadastro']" >
+            <i class="bi bi-person-plus" ></i> Cadastrar Usuário
+        </button>
+        
+    </div>
+
+    <div class="mb-4">
+        <label class="form-label fw-bold" ><i class="bi-search" ></i> Pesquisar Por Nome:</label>
+        <input class="form-control shadow-sm" type="text" placeholder="Digite o nome do usuário..." (input)="pesquisar($event)" />
+    </div>
+
+
+
+    <div class="table-responsive shadow">
+        <table class="table table-hover table-bordered text-center">
+            <thead class="table-dark" >
+                <tr>
+                    <th>Id</th>
+                    <th>Usuário</th>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(usuarios.length > 0){
+
+                    @for(usuario of usuarios; track $index){
+
+                        <tr>
+                            <td>{{usuario.id}}</td>
+                            <td>{{usuario.usuario}}</td>
+                            <td>{{usuario.nome}}</td>
+                            <td>{{usuario.sobrenome}}</td>
+                            <td>{{usuario.email}}</td>
+                            <td class="d-flex justify-content-center gap-2" >
+                                <button class="btn btn-warning btn-sm" [routerLink]="['/editar', usuario.id]" >
+                                    <i class="bi bi-pencil-square" ></i> Editar
+                                </button>
+                                <button class="btn btn-info btn-sm" [routerLink]="['/detalhes', usuario.id]"  >
+                                    <i class="bi bi-file-earmark-text" ></i> Detalhes
+                                </button>
+                                <button class="btn btn-danger btn-sm" (click)="remover(usuario.id)" >
+                                    <i class="bi bi-trash" ></i> Remover
+                                </button>
+                            </td>
+                        </tr>   
+
+
+
+                    }
+
+
+
+                }@else{
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Nenhum Usuário Cadastrado.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
